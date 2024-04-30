@@ -1,0 +1,45 @@
+{% include 'tasks/components/header.html' %}
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+            <div class="col-md-12">
+                <div class="card px-3">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <h4 class="card-title">Lista de fazeres</h4>
+                            <form method="post" class="form-add-box" action="#">
+                                {% csrf_token %}
+                                <div class="add-items d-flex"> <input type="text" class="form-control todo-list-input" id="title" name="title" required placeholder="O que você ira fazer hoje?"> <button class="add btn btn-primary font-weight-bold todo-list-add-btn">Add</button> </div>
+                                <!-- <div class="form-check"> <label class="form-check-label"> Completado <input class="checkbox" type="checkbox" id="complete" name="complete"> <i class="input-helper"></i></label> </div> -->
+
+                            </form>
+                            <div class="list-wrapper">
+                                <form action="#" method="post">
+                                {% csrf_token %}
+
+                                <ul class="d-flex flex-column todo-list">
+                                    {% for task in latest_task_list %}
+                                    <li class="flex container justify-content-between align-items-baseline">
+                                        
+                                        <div class="form-check {% if task.complete %}completed{% endif %}" for="{{task.id}}"> <label class="form-check-label" for="check{{task.id}}" name="{{task.id}}"> <input class="checkbox" name="check{{task.id}}" id="check{{task.id}}" {%if task.complete %}checked{% endif %} type="checkbox" > {{ task.title }} <i class="input-helper"></i></label> </div>
+                                        <input type="submit" value="remover" class="m-4 btn btn-danger" name="Remover{{task.id}}"/>
+                                            <!-- <i class="remove fa-solid fa-trash"></i> -->
+                                    </li>
+                                    {% endfor %}
+                                
+                                </ul>
+                        <input type="submit" class="my-4 btn btn-primary" id="confirmTask" name="confirmTask" value="Confirmar Tarefas">
+
+                            </form>
+                            </div>
+
+                        </div>
+
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+</div>
+{% include 'tasks/components/footer.html' %}
